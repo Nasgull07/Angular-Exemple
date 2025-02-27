@@ -1,0 +1,10 @@
+<h1>Bienvenido a la tienda</h1>
+<p>Los productos a continuación.</p>
+<div class="container">
+    <div class="row">
+      <div class="col-4" *ngFor="let product of products">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+  </div>
+  

@@ -14,6 +14,7 @@ export class ProductCardComponent {
 
   addToCart(product: any) {
     this.cartService.addToCart(product);
+    product.quantity =+ 1;
     console.log(`${product.name} añadido al carrito`);
   }
   navigateToProductDetail(product: any) {

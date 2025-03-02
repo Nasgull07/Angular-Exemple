@@ -28,3 +28,8 @@
     border-radius: 8px; /* Esquinas redondeadas */
     padding: 5px; /* Espacio alrededor */
   }
+
+  .quantity-button {
+    width: 30px;
+    margin-left: 10px;
+  }

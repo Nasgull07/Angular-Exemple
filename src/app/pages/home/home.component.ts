@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +13,35 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 })
 export class HomeComponent {
 
-  products = [
-    {name: 'Product 1', price: 100},
-    {name: 'Product 2', price: 200},
-    {name: 'Product 3', price: 300},
-    {name: 'Product 4', price: 400},
-  ]
+  products: any[] = [];
+  private token: string = '';
+
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  ngOnInit() {
+ //   this.authService.getAuthToken('your-username', 'your-password').subscribe(response => {
+//      this.token = response.access_token;
+      this.loadProducts();
+ //   }, error => {
+//      console.error('Error fetching auth token:', error);
+ //   });
+  }
+
+  loadProducts() {
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${this.token}`,
+      'Content-Type': 'application/json'
+    });
+
+
+    this.http.get<any[]>('https://fakestoreapi.com/products')
+
+      .subscribe(data => {
+        this.products = data;
+      }, error => {
+        console.error('Error fetching products:', error);
+      });
+  }
+
 }
